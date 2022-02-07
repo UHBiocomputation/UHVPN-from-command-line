@@ -43,14 +43,14 @@ print()
 print("running the command:")
 print('sudo', 
 	'openconnect', 
-	'-u', 'ms16aay@herts.ac.uk', 
+	'-u', username, 
 	'--cookie=DSID={}'.format(dsid_cookie['value']), 
 	'--protocol=nc', 
 	'uhvpn.herts.ac.uk')
 print("you may be prompted for your root password to run openconnect via sudo... ")
 subprocess.run(['sudo', 
 	'openconnect', 
-	'-u', 'ms16aay@herts.ac.uk', 
+	'-u', username, 
 	'--cookie=DSID={}'.format(dsid_cookie['value']), 
 	'--protocol=nc', 
 	'uhvpn.herts.ac.uk'])
