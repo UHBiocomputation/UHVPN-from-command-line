@@ -8,9 +8,8 @@ To run:
 
 ## Requirements
 ### Webdriver-manager & selenium
-[Selenium](https://www.selenium.dev/documentation/) is for browser automation. It requires a browser driver. Follow the instructions [here](https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/) depending on your OS.
+[Selenium](https://www.selenium.dev/documentation/) is for browser automation. It requires a browser driver. Follow the instructions [here](https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/) depending on your OS to install one. Or get it all via the wonderful conda/mamba:
 
-Or get it all via the wonderful conda/mamba:
 `mamba create -n selenium_env selenium webdriver-manager`
 
 ### Openconnect
