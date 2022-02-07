@@ -12,6 +12,8 @@ import time
 import os
 import subprocess
 
+username = input("UH username: ")
+pw = getpass('UH password: ')
 service = Service(executable_path=ChromeDriverManager().install())
 options = Options()
 options.page_load_strategy = 'normal'
@@ -19,8 +21,7 @@ driver = webdriver.Chrome(service=service, options=options)
 time.sleep(3)
 driver.get("http://uhvpn.herts.ac.uk") 
 name = driver.find_element(By.NAME,'UserName')
-name.send_keys('ms16aay@herts.ac.uk')
-pw = getpass('password')
+name.send_keys(username)
 passwdfield = driver.find_element(By.NAME, 'Password')
 passwdfield.send_keys(pw)
 signinbutton = driver.find_element(By.ID, 'submitButton')
@@ -37,12 +38,15 @@ dsid_cookie = driver.get_cookie('DSID')
 print(dsid_cookie['value'])
 driver.quit()
 time.sleep(1)
+print()
+print("running the command:")
 print('sudo', 
 	'openconnect', 
 	'-u', 'ms16aay@herts.ac.uk', 
 	'--cookie=DSID={}'.format(dsid_cookie['value']), 
 	'--protocol=nc', 
 	'uhvpn.herts.ac.uk')
+print("you may be prompted for your root password to run openconnect via sudo... ")
 subprocess.run(['sudo', 
 	'openconnect', 
 	'-u', 'ms16aay@herts.ac.uk', 
