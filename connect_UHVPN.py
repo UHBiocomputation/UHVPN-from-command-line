@@ -11,8 +11,17 @@ from getpass import getpass
 import time
 import os
 import subprocess
+import argparse
 
-username = input("UH username: ")
+parser = argparse.ArgumentParser(description='Connect to the UH VPN from the command line,' +\
+                                             ' obtaining the authentification cookie through a browser' +\
+                                             ' that is controlled through Selenium.')
+parser.add_argument('-u','--username', help="UH username (xx99xxx@herts.ac.uk)")
+args = parser.parse_args()
+
+username = args.username
+if not username:
+	username = input("UH username: ")
 pw = getpass('UH password: ')
 service = Service(executable_path=ChromeDriverManager().install())
 options = Options()
