@@ -17,6 +17,7 @@ parser = argparse.ArgumentParser(description='Connect to the UH VPN from the com
                                              ' obtaining the authentification cookie through a browser' +\
                                              ' that is controlled through Selenium.')
 parser.add_argument('-u','--username', help="UH username (xx99xxx@herts.ac.uk)")
+parser.add_argument('-s', '--silent', nargs='?', const=True, help="Use headless mode, i.e. don't show the browser window")
 args = parser.parse_args()
 
 username = args.username
@@ -26,6 +27,8 @@ pw = getpass('UH password: ')
 service = Service(executable_path=ChromeDriverManager().install())
 options = Options()
 options.page_load_strategy = 'normal'
+if silent:
+	options.headless = True
 driver = webdriver.Chrome(service=service, options=options)
 time.sleep(3)
 driver.get("http://uhvpn.herts.ac.uk") 
@@ -43,7 +46,7 @@ wrapper = WebDriverWait(driver, timeout=10).until(lambda d: d.find_element(By.CL
 driver.switch_to.default_content()
 iframe = driver.find_element(By.ID, "duo_iframe")
 iframe.send_keys('\n')
-WebDriverWait(driver,timeout=60).until(title_is("Secure Connect Secure - Home"))
+WebDriverWait(driver,timeout=10).until(title_is("Secure Connect Secure - Home"))
 dsid_cookie = driver.get_cookie('DSID')
 print(dsid_cookie['value'])
 driver.quit()
