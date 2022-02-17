@@ -17,8 +17,13 @@ parser = argparse.ArgumentParser(description='Connect to the UH VPN from the com
                                              ' obtaining the authentification cookie through a browser' +\
                                              ' that is controlled through Selenium.')
 parser.add_argument('-u','--username', help="UH username (xx99xxx@herts.ac.uk)")
-parser.add_argument('-s', '--silent', nargs='?', const=True, help="Use headless mode, i.e. don't show the browser window")
+parser.add_argument('-s', '--silent',  action='store_const', dest='silent',
+						const=True, default=False, 
+						help="Use headless mode, i.e. don't show the browser window. " +\
+						"Be aware that you may not see error messages displayed in the browser.")
 args = parser.parse_args()
+
+print(args.silent)
 
 username = args.username
 if not username:
@@ -27,7 +32,7 @@ pw = getpass('UH password: ')
 service = Service(executable_path=ChromeDriverManager().install())
 options = Options()
 options.page_load_strategy = 'normal'
-if silent:
+if args.silent:
 	options.headless = True
 driver = webdriver.Chrome(service=service, options=options)
 time.sleep(3)
