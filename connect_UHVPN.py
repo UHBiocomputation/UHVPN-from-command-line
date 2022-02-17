@@ -51,7 +51,7 @@ wrapper = WebDriverWait(driver, timeout=10).until(lambda d: d.find_element(By.CL
 driver.switch_to.default_content()
 iframe = driver.find_element(By.ID, "duo_iframe")
 iframe.send_keys('\n')
-WebDriverWait(driver,timeout=10).until(title_is("Secure Connect Secure - Home"))
+WebDriverWait(driver,timeout=60).until(title_is("Secure Connect Secure - Home"))
 dsid_cookie = driver.get_cookie('DSID')
 print(dsid_cookie['value'])
 driver.quit()
