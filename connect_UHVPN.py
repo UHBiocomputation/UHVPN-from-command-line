@@ -23,20 +23,22 @@ parser.add_argument('-s', '--silent',  action='store_const', dest='silent',
 						"Be aware that you may not see error messages displayed in the browser.")
 args = parser.parse_args()
 
-print(args.silent)
-
 username = args.username
 if not username:
 	username = input("UH username: ")
+if not username.endswith("@herts.ac.uk"):
+    username += "@herts.ac.uk"
 pw = getpass('UH password: ')
 service = Service(executable_path=ChromeDriverManager().install())
 options = Options()
 options.page_load_strategy = 'normal'
 if args.silent:
-	options.headless = True
+    options.headless = True
+
 driver = webdriver.Chrome(service=service, options=options)
 time.sleep(3)
 driver.get("http://uhvpn.herts.ac.uk") 
+
 name = driver.find_element(By.NAME,'UserName')
 name.send_keys(username)
 passwdfield = driver.find_element(By.NAME, 'Password')
@@ -44,13 +46,11 @@ passwdfield.send_keys(pw)
 del(pw)
 signinbutton = driver.find_element(By.ID, 'submitButton')
 signinbutton.click()
-WebDriverWait(driver,timeout=60).until(title_is("Duo Security"))
-iframe = WebDriverWait(driver, timeout=10).until(lambda d: d.find_element(By.ID,'duo_iframe'))
-driver.switch_to.frame(iframe)
-wrapper = WebDriverWait(driver, timeout=10).until(lambda d: d.find_element(By.CLASS_NAME,'device-select-wrapper'))
-driver.switch_to.default_content()
-iframe = driver.find_element(By.ID, "duo_iframe")
-iframe.send_keys('\n')
+WebDriverWait(driver,timeout=60).until(title_is('Two-Factor Authentication'))
+
+auth = driver.find_element(By.CLASS_NAME,'remember_me_label_field')
+auth.send_keys('\n')
+
 WebDriverWait(driver,timeout=60).until(title_is("Secure Connect Secure - Home"))
 dsid_cookie = driver.get_cookie('DSID')
 print(dsid_cookie['value'])
