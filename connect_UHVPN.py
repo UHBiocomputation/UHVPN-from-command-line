@@ -37,7 +37,7 @@ if args.silent:
 
 driver = webdriver.Chrome(service=service, options=options)
 time.sleep(3)
-driver.get("http://uhvpn.herts.ac.uk") 
+driver.get("https://uhvpn.herts.ac.uk") 
 
 name = driver.find_element(By.NAME,'UserName')
 name.send_keys(username)
