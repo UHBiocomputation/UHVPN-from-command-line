@@ -1,6 +1,6 @@
 # UHVPN from command line
 
-scripting UH VPN access even after UH required authentication via web browser.
+Scripting UH VPN access from command line when authentication via web browser is required.
 
 To run:
 
@@ -17,3 +17,5 @@ Get openconnect via your favourite package manager (recommended) or from the [op
 
 ## Compatibility
 Tested under MacOS. Should run under Linux. Will most likely not run under Windows since it uses "sudo" to launch openconnect. 
+
+NO WARRANTY. USE AT OWN RISK. 
