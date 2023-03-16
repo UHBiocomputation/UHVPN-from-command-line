@@ -8,7 +8,7 @@ To run:
 
 Advanced usage:
 
-`python connect_UHVPN.py -u ab12ced@herts.ac.uk -p supersecurepassword123`
+`python connect_UHVPN.py -u ab12ced@herts.ac.uk`
 
 ## Requirements
 ### Webdriver-manager & selenium
